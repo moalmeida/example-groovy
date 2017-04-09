@@ -1,0 +1,66 @@
+version: '2'
+services:
+  mock:
+    restart: always
+    build: ./mock
+    volumes:
+     - npm_cache:/src/app/node_modules
+    network_mode: default
+    environment:
+     - PORT=3000
+    ports:
+     - 3000:3000
+    privileged: true
+  amqp:
+    restart: always
+    build: ./amqp
+    environment:
+     - RABBITMQ_DEFAULT_USER=sms
+     - RABBITMQ_DEFAULT_PASS=m4u123sms
+    volumes:
+      - amqp_data:/var/lib/rabbitmq
+    network_mode: default
+    expose:
+     - 15672
+     - 5672
+    ports:
+     - 5672:5672
+     - 15672:15672
+  sql:
+    restart: always
+    image: mariadb:10
+    environment:
+     - MYSQL_DATABASE=sms
+     - MYSQL_ROOT_PASSWORD=m4u123sms
+    volumes:
+     - sql_data:/var/lib/mysql
+    network_mode: default
+    expose:
+     - 3306
+    ports:
+     - 3306:3306
+  api:
+    restart: always
+    build: ./api
+    volumes:
+     - m2_cache:/root/.m2
+    network_mode: default
+    depends_on:
+     - sql
+     - amqp
+     - mock
+    links:
+     - sql
+     - amqp
+     - mock
+    expose:
+     - 8080
+     - 8081
+    ports:
+     - 8080:8080
+     - 8081:8081
+volumes:
+  amqp_data: {}
+  sql_data: {}
+  npm_cache: {}
+  m2_cache: {}

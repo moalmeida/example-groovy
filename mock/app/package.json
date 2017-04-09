@@ -1,0 +1,20 @@
+{
+  "name": "sms_mock",
+  "version": "0.0.0",
+  "author": "moalmeida <moalmeida@koinosystems.com>",
+  "scripts": {
+    "prestart": "gulp default",
+    "start": "node src/server.js"
+  },
+  "dependencies": {
+    "express": "^4.14.0"
+  },
+  "env": {
+    "PORT": 8888,
+    "NODE_ENV": "production"
+  },
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "gulp-install": "^0.6.0"
+  }
+}
