@@ -1,0 +1,45 @@
+server:
+  port: 8080
+management:
+  port: 8081
+  address: 0.0.0.0
+  security:
+    enabled: false
+metrics:
+  host: metrics
+  port: 2003
+api:
+  schema: http://
+  host: mock
+  port: 3000
+  path: /api/v1
+queue:
+  name: api_queue
+  expire: 1
+spring:
+  profiles:
+    active: production
+  rabbitmq:
+    dynamic: true
+    host: amqp
+    port: 5672
+    username: api
+    password: example123api
+  datasource:
+    url: jdbc:mysql://sql/api
+    username: root
+    password: example123api
+    driver-class-name: com.mysql.jdbc.Driver
+    tomcat:
+      max-wait: 10000
+      max-active: 5
+      test-on-borrow: true
+    testWhileIdle: true
+    validationQuery: SELECT 1
+  jpa:
+    hibernate:
+      ddl-auto: update
+      naming-strategy: org.hibernate.cfg.ImprovedNamingStrategy
+    properties:
+      hibernate:
+      dialect: org.hibernate.dialect.MySQL5Dialect

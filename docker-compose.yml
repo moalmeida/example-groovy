@@ -15,8 +15,8 @@ services:
     restart: always
     build: ./amqp
     environment:
-     - RABBITMQ_DEFAULT_USER=sms
-     - RABBITMQ_DEFAULT_PASS=m4u123sms
+     - RABBITMQ_DEFAULT_USER=api
+     - RABBITMQ_DEFAULT_PASS=example123api
     volumes:
       - amqp_data:/var/lib/rabbitmq
     network_mode: default
@@ -30,8 +30,8 @@ services:
     restart: always
     image: mariadb:10
     environment:
-     - MYSQL_DATABASE=sms
-     - MYSQL_ROOT_PASSWORD=m4u123sms
+     - MYSQL_DATABASE=api
+     - MYSQL_ROOT_PASSWORD=example123api
     volumes:
      - sql_data:/var/lib/mysql
     network_mode: default
